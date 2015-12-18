@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">AppTTA</string>
     <string name="action_settings">Settings</string>
+
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="login_label">Usuario</string>
+    <string name="login_edit">Introduce DNI</string>
     <string name="passwd_label">Contraseña</string>
     <string name="passwd_edit">Introduce password</string>
-    <string name="title_activity_test">TestActivity</string>
     <string name="button_send">Enviar</string>
+
+    <string name="title_activity_test">TestActivity</string>
+    <string name="question1">¿Cual de las siguientes opciones NO se indica en el fichero de manifiesto de la app?</string>
+
     <string name="title_activity_exercise">ExerciseActivity</string>
 </resources>

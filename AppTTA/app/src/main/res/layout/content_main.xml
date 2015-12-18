@@ -13,16 +13,20 @@
         android:orientation="vertical"
         tools:context="es.tta.example.MenuActivity">
 
-        <TextView android:text="Usuario" android:layout_width="wrap_content"
+        <TextView
+            android:text="@string/login_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Introduce DNI"/>
+            android:hint="@string/login_edit"/>
 
-        <TextView android:text="@string/passwd_label" android:layout_width="wrap_content"
+        <TextView
+            android:text="@string/passwd_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText

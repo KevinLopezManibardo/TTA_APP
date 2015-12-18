@@ -1,5 +1,6 @@
 package com.example.kevin.apptta;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,9 +9,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+    public final static String EXTRA_LOGIN = "es.tta.apptta.login";
+    public final static String EXTRA_PASSWD = "es.tta.apptta.passwd";
 
+    //Funcion que recoge de la vista de login (MAIN) el usuario y el password.
+    public void login (View vista) {
+        Intent intent = new Intent(this,MenuActivity.class);
+
+        //Recogemos el usuario y el password
+        EditText editLogin = (EditText)findViewById(R.id.login);
+        EditText editPassword = (EditText)findViewById(R.id.login);
+
+        //Almacenamos el usuario y el password
+        intent.putExtra(EXTRA_LOGIN,editLogin.getText().toString());
+        intent.putExtra(EXTRA_PASSWD,editPassword.getText().toString());
+
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
