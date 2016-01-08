@@ -11,6 +11,16 @@
 
     <string name="title_activity_test">TestActivity</string>
     <string name="question1">¿Cual de las siguientes opciones NO se indica en el fichero de manifiesto de la app?</string>
+    <string name="button_help">Ayuda</string>
 
     <string name="title_activity_exercise">ExerciseActivity</string>
+
+    <string name="no_camera">Se requiere camara</string>
+    <string name="no_micro">Se requiere microfono</string>
+    <string name="no_app">Se requiere aplicacion especifica</string>
+
+    <string name="wrong_dni">DNI incorrecto o mal escrito</string>
+    <string name="server_error">Error al recibir la respuesta</string>
+    <string name="upload_error">Error al enviar la respuesta</string>
+
 </resources>

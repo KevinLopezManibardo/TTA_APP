@@ -12,7 +12,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/button_send_file"
+        android:id="@+id/send_file_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Subir fichero"
@@ -20,21 +20,21 @@
 
 
     <Button
-        android:id="@+id/button_make_photo"
+        android:id="@+id/send_pic_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sacar foto"
         android:onClick="sendFile"/>
 
     <Button
-        android:id="@+id/button_record_audio"
+        android:id="@+id/send_audio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grabar audio"
         android:onClick="sendFile"/>
 
     <Button
-        android:id="@+id/button_record_video"
+        android:id="@+id/send_video_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grabar video"

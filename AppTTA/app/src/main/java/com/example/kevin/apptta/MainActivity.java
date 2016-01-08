@@ -1,70 +1,81 @@
 package com.example.kevin.apptta;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_LOGIN = "es.tta.apptta.login";
-    public final static String EXTRA_PASSWD = "es.tta.apptta.passwd";
+    /* -- Atributos -- */
+    public final static String EXTRA_USER = "es.tta.demo.user";
+    private NetworkReceiver networkReceiver;
 
-    //Funcion que recoge de la vista de login (MAIN) el usuario y el password.
-    public void login (View vista) {
-        Intent intent = new Intent(this,MenuActivity.class);
-
-        //Recogemos el usuario y el password
-        EditText editLogin = (EditText)findViewById(R.id.login);
-        EditText editPassword = (EditText)findViewById(R.id.login);
-
-        //Almacenamos el usuario y el password
-        intent.putExtra(EXTRA_LOGIN,editLogin.getText().toString());
-        intent.putExtra(EXTRA_PASSWD,editPassword.getText().toString());
-
-        startActivity(intent);
-    }
+    /* -- Métodos sobreescritos -- */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //Registra BroadcastReceiver para seguir los cambios en la conexión de red
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        networkReceiver = new NetworkReceiver();
+        this.registerReceiver(networkReceiver, filter);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onDestroy(){
+        super.onDestroy();
+        //Desregistra BroadcastReceiver cuando la app es destruida
+        if(networkReceiver != null){
+            this.unregisterReceiver(networkReceiver);
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /* -- Métodos de clase -- */
+    //Método que loguea al usuario y carga la vista del Menu.
+    public void login (final View view){
+        final Intent intent = new Intent(this,MenuActivity.class);
+        EditText editLogin = (EditText) findViewById(R.id.login);
+        EditText editPasswd = (EditText) findViewById(R.id.password);
+        /*Verificar que el DNI sigue el formato indicado*/
+        final String pss = editPasswd.getText().toString();
+        final String dni = editLogin.getText().toString();
+        if(dni.matches("[0-9]{8}[A-Z]")){
+            /*Obtener los datos de usuario*/
+            final PreguntasTest data = new PreguntasTest(dni,pss);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    UserStatus user=null;
+                    try{
+                        user = data.getStatus(dni,pss);
+                    }catch(Exception e){
+                        Log.e("demo", e.getMessage(), e);
+                    }finally {
+                        if(user!=null){
+                            intent.putExtra(EXTRA_USER,user);
+                            view.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(intent);
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getApplicationContext(),R.string.server_error,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            }).start();
+        }else{
+            Toast.makeText(getApplicationContext(),R.string.wrong_dni, Toast.LENGTH_LONG).show();
         }
 
-        return super.onOptionsItemSelected(item);
     }
+
 }
