@@ -24,19 +24,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sacar foto"
-        android:onClick="sendFile"/>
+        android:onClick="sendImage"/>
 
     <Button
         android:id="@+id/send_audio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grabar audio"
-        android:onClick="sendFile"/>
+        android:onClick="sendAudio"/>
 
     <Button
         android:id="@+id/send_video_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grabar video"
-        android:onClick="sendFile"/>
+        android:onClick="sendVideo"/>
 </LinearLayout>

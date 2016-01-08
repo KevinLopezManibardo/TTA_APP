@@ -59,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
                     }finally {
                         if(user!=null){
                             intent.putExtra(EXTRA_USER,user);
+                            Log.i("demo", user.getUser_dni() + user.getUser_pss() + user.getUser());
                             view.post(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     startActivity(intent);
                                 }
                             });

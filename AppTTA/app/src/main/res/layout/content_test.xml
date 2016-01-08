@@ -8,7 +8,7 @@
     tools:context="es.tta.example.TestActivity">
 
     <TextView
-        android:text="@+id/test_wording"
+        android:id="@+id/test_wording"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

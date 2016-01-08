@@ -43,11 +43,12 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         user = (UserStatus) intent.getSerializableExtra(MainActivity.EXTRA_USER);
+        Log.i("demo",user.getUser());
 
         listener = this;
 
         //Referenciamos los elementos en los que se mostraran la pregunta y las respuestas
-        final TextView textWording = (TextView) findViewById(R.id.test_wording);
+        final TextView testWording = (TextView) findViewById(R.id.test_wording);
         final RadioGroup group = (RadioGroup) findViewById(R.id.test_choices);
 
 
@@ -60,12 +61,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     //Carga de las preguntas y respuestas
                     test = data.getTest(1);
+                    Log.i("demo",test.getWording());
+                   // Log.i("demo",testWording.getText().toString());
 
                     //Se muestra la pregunta
-                    textWording.post(new Runnable() {
+                   testWording.post(new Runnable() {
                         @Override
                         public void run() {
-                            textWording.setText(test.getWording());
+                            testWording.setText(test.getWording());
                         }
                     });
 
